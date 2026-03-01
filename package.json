@@ -1,18 +1,18 @@
 {
-  "name": "aider-agent",
+  "name": "aider-chat",
   "displayName": "Aider Chat",
   "description": "Manage Aider with local (Ollama) or remote (Claude API) LLM backends from VS Code",
-  "version": "1.2.0",
-  "publisher": "your-name",
+  "version": "1.2.1",
+  "publisher": "ChristopherBlodgett",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-name/aider-agent"
+    "url": "https://github.com/shotah/aider_chat"
   },
   "bugs": {
-    "url": "https://github.com/your-name/aider-agent/issues"
+    "url": "https://github.com/shotah/aider_chat/issues"
   },
-  "homepage": "https://github.com/your-name/aider-agent#readme",
+  "homepage": "https://github.com/shotah/aider_chat#readme",
   "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.108.0"

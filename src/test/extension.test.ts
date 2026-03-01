@@ -4,12 +4,12 @@ import * as vscode from 'vscode';
 suite('Extension Activation', () => {
 
 	test('Extension is present', () => {
-		const ext = vscode.extensions.getExtension('your-name.aider-agent');
-		assert.ok(ext, 'Extension your-name.aider-agent not found');
+		const ext = vscode.extensions.getExtension('ChristopherBlodgett.aider-chat');
+		assert.ok(ext, 'Extension ChristopherBlodgett.aider-chat not found');
 	});
 
 	test('Extension activates without error', async () => {
-		const ext = vscode.extensions.getExtension('your-name.aider-agent')!;
+		const ext = vscode.extensions.getExtension('ChristopherBlodgett.aider-chat')!;
 		if (!ext.isActive) {
 			await ext.activate();
 		}
@@ -22,7 +22,7 @@ suite('Command Registration', () => {
 	let commands: string[];
 
 	suiteSetup(async () => {
-		const ext = vscode.extensions.getExtension('your-name.aider-agent')!;
+		const ext = vscode.extensions.getExtension('ChristopherBlodgett.aider-chat')!;
 		if (!ext.isActive) { await ext.activate(); }
 		commands = await vscode.commands.getCommands(true);
 	});
@@ -97,7 +97,7 @@ suite('Configuration Defaults', () => {
 suite('Engine Safety', () => {
 
 	suiteSetup(async () => {
-		const ext = vscode.extensions.getExtension('your-name.aider-agent')!;
+		const ext = vscode.extensions.getExtension('ChristopherBlodgett.aider-chat')!;
 		if (!ext.isActive) { await ext.activate(); }
 	});
 

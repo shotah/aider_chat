@@ -45,5 +45,5 @@ jobs:
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
         with:
-          name: aider-agent-vsix
+          name: aider-chat-vsix
           path: "*.vsix"
