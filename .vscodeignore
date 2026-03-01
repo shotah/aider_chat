@@ -1,0 +1,19 @@
+# Source & config (compiled output in dist/ is all we need)
+src/**
+tsconfig.json
+eslint.config.mjs
+.vscode-test.mjs
+
+# Dev / CI
+.vscode/**
+.github/**
+.aider*
+node_modules/**
+.vscode-test/**
+
+# Misc
+*.log
+*.env
+.DS_Store
+.idea/
+.gitignore

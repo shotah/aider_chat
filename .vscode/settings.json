@@ -1,0 +1,20 @@
+{
+    // ── Aider Chat: Provider ───────────────────────────────────────
+    // "local"  = Ollama (starts automatically, zero token cost)
+    // "remote" = Claude API (shuts down Ollama to free resources)
+    "aiderAgent.provider": "local",
+
+    // ── Local (Ollama) ──────────────────────────────────────────────
+    "aiderAgent.local.model": "ollama_chat/qwen2.5-coder:14b",
+    "aiderAgent.local.apiBase": "http://localhost:11434",
+
+    // ── Remote (Claude API) ─────────────────────────────────────────
+    "aiderAgent.remote.model": "claude-opus-4-20250514",
+    "aiderAgent.remote.apiKey": "sk-ant-api03-FAKE-KEY-REPLACE-ME-1234567890abcdefghijklmnopqrstuvwxyz",
+
+    // ── Extra Aider CLI flags ───────────────────────────────────────
+    "aiderAgent.extraArgs": [
+        "--dark-mode",
+        "--no-auto-commits"
+    ]
+}

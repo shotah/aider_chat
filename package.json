@@ -1,0 +1,207 @@
+{
+  "name": "aider-agent",
+  "displayName": "Aider Chat",
+  "description": "Manage Aider with local (Ollama) or remote (Claude API) LLM backends from VS Code",
+  "version": "1.2.0",
+  "publisher": "your-name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-name/aider-agent"
+  },
+  "bugs": {
+    "url": "https://github.com/your-name/aider-agent/issues"
+  },
+  "homepage": "https://github.com/your-name/aider-agent#readme",
+  "icon": "images/logo.png",
+  "engines": {
+    "vscode": "^1.108.0"
+  },
+  "categories": [
+    "AI",
+    "Chat",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "aider",
+    "ollama",
+    "claude",
+    "ai",
+    "local-llm",
+    "pair-programming"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aiderAgent",
+          "title": "Aider",
+          "icon": "$(comment-discussion)"
+        }
+      ]
+    },
+    "views": {
+      "aiderAgent": [
+        {
+          "type": "webview",
+          "id": "aiderAgent.chatView",
+          "name": "Chat"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "aiderAgent.start",
+        "title": "Aider: Start Engine",
+        "icon": "$(play)"
+      },
+      {
+        "command": "aiderAgent.stop",
+        "title": "Aider: Stop Engine",
+        "icon": "$(stop)"
+      },
+      {
+        "command": "aiderAgent.switchProvider",
+        "title": "Aider: Switch Provider (Local / Remote)"
+      },
+      {
+        "command": "aiderAgent.addFile",
+        "title": "Aider: Add File to Chat"
+      },
+      {
+        "command": "aiderAgent.removeFile",
+        "title": "Aider: Remove File from Chat"
+      },
+      {
+        "command": "aiderAgent.pickFiles",
+        "title": "Aider: Pick Files to Add…",
+        "icon": "$(new-file)"
+      }
+    ],
+    "configuration": {
+      "title": "Aider Chat",
+      "properties": {
+        "aiderAgent.provider": {
+          "type": "string",
+          "default": "local",
+          "enum": [
+            "local",
+            "remote"
+          ],
+          "enumDescriptions": [
+            "Local Ollama instance — starts Ollama automatically, zero token cost",
+            "Remote Claude API via Aider — shuts down Ollama to free resources"
+          ],
+          "description": "LLM backend for Aider. Switching to remote automatically stops Ollama."
+        },
+        "aiderAgent.local.model": {
+          "type": "string",
+          "default": "ollama_chat/qwen2.5-coder:14b",
+          "description": "Ollama model tag for Aider (e.g. ollama_chat/qwen2.5-coder:14b, ollama_chat/qwen2.5-coder:32b, ollama_chat/deepseek-coder-v2:16b)."
+        },
+        "aiderAgent.local.apiBase": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama API base URL. Change if Ollama runs on a different host or port."
+        },
+        "aiderAgent.remote.model": {
+          "type": "string",
+          "default": "claude-sonnet-4-20250514",
+          "description": "Remote model identifier (e.g. claude-sonnet-4-20250514, claude-opus-4-20250514)."
+        },
+        "aiderAgent.remote.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Anthropic API key. Leave blank to read from ANTHROPIC_API_KEY env var."
+        },
+        "aiderAgent.extraArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Extra CLI flags passed to Aider (e.g. [\"--auto-commits\", \"--dark-mode\"])."
+        }
+      }
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "aiderAgent.start",
+          "when": "view == aiderAgent.chatView",
+          "group": "navigation"
+        },
+        {
+          "command": "aiderAgent.stop",
+          "when": "view == aiderAgent.chatView",
+          "group": "navigation"
+        },
+        {
+          "command": "aiderAgent.pickFiles",
+          "when": "view == aiderAgent.chatView",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "aiderAgent.addFile",
+          "when": "!explorerResourceIsFolder",
+          "group": "aiderAgent@1"
+        },
+        {
+          "command": "aiderAgent.removeFile",
+          "when": "!explorerResourceIsFolder",
+          "group": "aiderAgent@2"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "aiderAgent.addFile",
+          "group": "aiderAgent@1"
+        },
+        {
+          "command": "aiderAgent.removeFile",
+          "group": "aiderAgent@2"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "aiderAgent.addFile",
+          "group": "aiderAgent@1"
+        },
+        {
+          "command": "aiderAgent.removeFile",
+          "group": "aiderAgent@2"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "NODE_OPTIONS='--max-old-space-size=4096' eslint src/",
+    "fix": "NODE_OPTIONS='--max-old-space-size=4096' eslint src/ --fix",
+    "test": "NODE_OPTIONS='--max-old-space-size=4096' vscode-test",
+    "test:only": "NODE_OPTIONS='--max-old-space-size=4096' vscode-test",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.x",
+    "@types/vscode": "^1.108.0",
+    "@typescript-eslint/eslint-plugin": "^8.x",
+    "@typescript-eslint/parser": "^8.x",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.7.1",
+    "eslint": "^9.x",
+    "eslint-plugin-jest": "^29.15.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.56.1"
+  }
+}
